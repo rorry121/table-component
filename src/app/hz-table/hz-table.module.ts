@@ -4,8 +4,8 @@ import { HzTableComponent } from './hz-table.component';
 import { HzThComponent } from './hz-th/hz-th.component';
 import { HzTdComponent } from './hz-td/hz-td.component';
 import { HzTheadComponent } from './hz-thead/hz-thead.component';
-import { HzTrComponent } from './hz-tr/hz-tr.component';
 import { HzTbodyDirective } from './hz-tbody.directive';
+import { HzTrDirective } from './hz-tr.directive';
 
 
 @NgModule({
@@ -14,12 +14,12 @@ import { HzTbodyDirective } from './hz-tbody.directive';
     HzThComponent,
     HzTdComponent,
     HzTheadComponent,
-    HzTrComponent,
-    HzTbodyDirective
+    HzTbodyDirective,
+    HzTrDirective
   ],
   imports: [
     CommonModule,
   ],
-  exports: [HzTableComponent, HzTheadComponent, HzThComponent, HzTdComponent, HzTrComponent, HzTbodyDirective]
+  exports: [HzTableComponent, HzTheadComponent, HzThComponent, HzTdComponent, HzTrDirective, HzTbodyDirective]
 })
 export class HzTableModule { }

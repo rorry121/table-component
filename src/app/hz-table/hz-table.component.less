@@ -7,7 +7,6 @@
 .hz-table-wrap {
   width: 100%;
   overflow: hidden;
-  padding-top: 36px;
   position: relative;
   &.hz-table-scroll-left {
     ::ng-deep .hz-table-col-left-sticky {
@@ -24,22 +23,31 @@
   }
   ::ng-deep .hz-table-col-right-sticky {
     position: sticky;
-    right: 0;
+    z-index: 10;
     box-shadow: -6px 0 6px 0 rgba(0,0,0,.05)
   }
   ::ng-deep .hz-table-col-left-sticky {
     position: sticky;
-    left: 0;
+    z-index: 10;
     box-shadow: 6px 0 6px 0 rgba(0,0,0,.05)
   }
   .hz-table-body-wrap {
-    height: 100px;
+    max-height: 200px;
     overflow: auto;
   }
   .hz-table-head-wrap {
-    position: absolute;
-    left: 0;
-    top: 0;
+    width: 100%;
+    height: 36px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: @blue-bg-color-per10;
+    border-right: 0 solid @blue-bg-color-per10;
+    .hz-table-head {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
   }
     table {
       width: 100%;
@@ -57,6 +65,30 @@
             box-sizing: border-box!important;
             background-color: @blue-bg-color-per10;
             height: @table-cell-height;
+            line-height: @table-cell-height;
+            span {
+              //vertical-align: middle;
+              //margin-right: 4px;
+              //white-space: nowrap;
+              //overflow: hidden;
+              //text-overflow: ellipsis;
+              //display: inline-block;
+              //max-width: calc(100% - 20px);
+            }
+            i {
+              cursor: pointer;
+              display: inline-block;
+              height: 16px;
+              width: 16px;
+              background: url("../../assets/icon-arrows-white-down.svg");
+              vertical-align: middle;
+              &.hz-table-sort-desc {
+
+              }
+              &.hz-table-sort-asc {
+                transform: rotate(180deg);
+              }
+            }
           }
         }
       }
@@ -66,10 +98,14 @@
         font-size: 12px;
         tr {
           &:nth-child(2n-1) {
-            background-color: @blue-bg-color-per20;
+            td {
+              background-color: @blue-bg-color-per20;
+            }
           }
           &:nth-child(2n) {
-            background-color: @blue-bg-color-per10;
+            td {
+              background-color: @blue-bg-color-per10;
+            }
           }
           td {
             padding: 0 16px;

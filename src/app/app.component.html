@@ -21,18 +21,18 @@
   <app-hz-table>
     <thead>
     <tr>
-      <th class="hz-table-col-left-sticky">Name</th>
-      <th>Age</th>
-      <th>Address</th>
-      <th class="hz-table-col-right-sticky">Action</th>
+      <th [hzShowSort]="true" [hzSortKey]="'Name'" [hzLeft]="'0px'">NaNam</th>
+      <th [hzShowSort]="true" [hzSortKey]="'Age'">AgeAgeAg</th>
+      <th [hzShowSort]="true" [hzSortKey]="'Address'">AddressA</th>
+      <th [hzSortKey]="'Action'" [hzRight]="'0px'">ActionA</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of listOfData;let i = index">
-      <td class="hz-table-col-left-sticky">{{data.name}}</td>
+      <td [hzLeft]="'0px'">{{data.name}}</td>
       <td>{{data.age}}</td>
       <td>{{data.address}}</td>
-      <td class="hz-table-col-right-sticky">
+      <td [hzRight]="'0px'">
         <a>Action 一 {{data.name}}</a>
         <a (click)="delete(i)">Delete</a>
       </td>

@@ -14,20 +14,19 @@ import { HzThComponent } from '../hz-th/hz-th.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { startWith } from 'rxjs/internal/operators/startWith';
-import { HzTrComponent } from '../hz-tr/hz-tr.component';
+import { HzTrDirective } from '../hz-tr.directive';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'thead:not(.hz-table-thead)',
   templateUrl: './hz-thead.component.html',
-  styleUrls: ['./hz-thead.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HzTheadComponent implements OnInit, AfterViewInit, OnDestroy {
   embeddedViewRef: EmbeddedViewRef<void>;
   @ViewChild('contentTemplate', {static: true}) templateRef: TemplateRef<void>;
   @ContentChildren(HzThComponent, {descendants: true}) listOfHzThComponent: QueryList<HzThComponent>;
-  @ContentChildren(HzTrComponent, {descendants: true}) listOfHzTrComponent: QueryList<HzTrComponent>;
+  @ContentChildren(HzTrDirective, {descendants: true}) listOfHzTrDirective: QueryList<HzTrDirective>;
   destroy$ = new Subject();
 
   constructor(

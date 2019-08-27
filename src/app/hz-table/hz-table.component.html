@@ -1,9 +1,11 @@
 <section class="hz-table-wrap" #tableElement>
-  <div class="hz-table-head-wrap" #theadElement>
-    <table>
-      <ng-template [ngTemplateOutlet]="TableHead"></ng-template>
-    </table>
-  </div>
+  <article class="hz-table-head-wrap" #theadElementWrap>
+    <div class="hz-table-head" #theadElement>
+      <table>
+        <ng-template [ngTemplateOutlet]="TableHead"></ng-template>
+      </table>
+    </div>
+  </article>
   <div class="hz-table-body-wrap" #tbodyElement>
     <table>
       <ng-content></ng-content>

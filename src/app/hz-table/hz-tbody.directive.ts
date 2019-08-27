@@ -1,13 +1,13 @@
 import { ContentChildren, Directive, Host, HostBinding, Optional, QueryList } from '@angular/core';
-import { HzTrComponent } from './hz-tr/hz-tr.component';
 import { HzTableComponent } from './hz-table.component';
+import { HzTrDirective } from './hz-tr.directive';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: 'tbody'
 })
 export class HzTbodyDirective {
-  @ContentChildren(HzTrComponent, {descendants: true}) listOfHzTrComponent: QueryList<HzTrComponent>;
+  @ContentChildren(HzTrDirective, {descendants: true}) listOfHzTrDirective: QueryList<HzTrDirective>;
 
   constructor(
     @Host() @Optional() public hzTableComponent: HzTableComponent,

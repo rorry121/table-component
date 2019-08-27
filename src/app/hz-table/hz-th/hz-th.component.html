@@ -1,1 +1,11 @@
-<ng-content></ng-content>
+<ng-container *ngIf="!hzTableComponent">
+  <ng-content></ng-content>
+</ng-container>
+<ng-container *ngIf="hzTableComponent">
+  <span>
+      <ng-content></ng-content>
+  </span>
+  <i *ngIf="hzShowSort" (click)="sortChange()"
+     [ngClass]="{'hz-table-sort-desc': hzSort === 'desc', 'hz-table-sort-asc':  hzSort === 'asc'}"
+  ></i>
+</ng-container>
