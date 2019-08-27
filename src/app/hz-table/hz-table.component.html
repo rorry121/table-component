@@ -1,0 +1,20 @@
+<section class="hz-table-wrap" #tableElement>
+  <div class="hz-table-head-wrap" #theadElement>
+    <table>
+      <ng-template [ngTemplateOutlet]="TableHead"></ng-template>
+    </table>
+  </div>
+  <div class="hz-table-body-wrap" #tbodyElement>
+    <table>
+      <ng-content></ng-content>
+    </table>
+  </div>
+</section>
+
+<ng-template #TableHead>
+  <thead class="hz-table-thead">
+    <ng-template [ngTemplateOutlet]="hzTheadComponent?.templateRef"></ng-template>
+  <span></span>
+  </thead>
+</ng-template>
+

@@ -1,0 +1,7 @@
+<ng-template #contentTemplate>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-container *ngIf="!hzTableComponent">
+  <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+</ng-container>
