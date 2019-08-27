@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Path</title>
+    <desc>Created with Sketch.</desc>
+    <g id="组件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="table-header/2备份-4" transform="translate(-104.000000, -12.000000)">
+            <rect id="Rectangle" fill-opacity="0.2" fill="#2979FF" x="0" y="0" width="208" height="40"></rect>
+            <g id="Group" opacity="0.7" transform="translate(104.000000, 12.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                <path d="M7.85355,12.5 L8.2071,12.8536 L7.85355,13.2071 L7.5,12.8536 L7.85355,12.5 Z M7.35355,12.5 L7.35355,2 L8.35355,2 L8.35355,12.5 L7.35355,12.5 Z M8.35355,2 L8.35355,12.5 L7.35355,12.5 L7.35355,2 L8.35355,2 Z M4.7071,8.64645 L8.2071,12.1464 L7.5,12.8536 L4,9.35355 L4.7071,8.64645 Z M7.5,12.1464 L10.99995,8.64645 L11.70715,9.35355 L8.2071,12.8536 L7.5,12.1464 Z" id="形状"></path>
+            </g>
+        </g>
+    </g>
+</svg>
