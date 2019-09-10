@@ -1,6 +1,6 @@
 import { ContentChildren, Directive, QueryList } from '@angular/core';
-import { HzThComponent } from './hz-th/hz-th.component';
-import { HzTdComponent } from './hz-td/hz-td.component';
+import { HzThComponent } from '../hz-th/hz-th.component';
+import { HzTdDirective } from './hz-td.directive';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -8,7 +8,7 @@ import { HzTdComponent } from './hz-td/hz-td.component';
 })
 export class HzTrDirective {
   @ContentChildren(HzThComponent, {descendants: true}) listOfHzThComponent: QueryList<HzThComponent>;
-  @ContentChildren(HzTdComponent, {descendants: true}) listOfHzTdComponent: QueryList<HzTdComponent>;
+  @ContentChildren(HzTdDirective, {descendants: true}) listOfHzTdDirective: QueryList<HzTdDirective>;
   constructor() { }
 
 }

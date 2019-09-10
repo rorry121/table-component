@@ -1,5 +1,5 @@
 import { ContentChildren, Directive, Host, HostBinding, Optional, QueryList } from '@angular/core';
-import { HzTableComponent } from './hz-table.component';
+import { HzTableComponent } from '../hz-table.component';
 import { HzTrDirective } from './hz-tr.directive';
 
 @Directive({

@@ -18,24 +18,22 @@
 <!--  </li>-->
 <!--</ul>-->
 <section class="dark">
-  <app-hz-table>
+  <app-hz-table (sortKeyChange)="show()">
     <thead>
     <tr>
-      <th [hzShowSort]="true" [hzSortKey]="'Name'" [hzLeft]="'0px'">NaNam</th>
-      <th [hzShowSort]="true" [hzSortKey]="'Age'">AgeAgeAg</th>
-      <th [hzShowSort]="true" [hzSortKey]="'Address'">AddressA</th>
-      <th [hzSortKey]="'Action'" [hzRight]="'0px'">ActionA</th>
+      <th *ngFor="let item of title">{{item}}</th>
+      <th [hzRight]="'0px'">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let data of listOfData;let i = index">
-      <td [hzLeft]="'0px'">{{data.name}}</td>
-      <td>{{data.age}}</td>
+      <td [hzMinWidth]="'300px'">{{data.name}}</td>
       <td>{{data.address}}</td>
-      <td [hzRight]="'0px'">
+      <td>
         <a>Action 一 {{data.name}}</a>
         <a (click)="delete(i)">Delete</a>
       </td>
+      <td [hzRight]="'0px'">编辑</td>
     </tr>
     </tbody>
 

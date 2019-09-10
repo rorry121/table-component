@@ -1,22 +1,26 @@
 <section class="hz-table-wrap" #tableElement>
   <article class="hz-table-head-wrap" #theadElementWrap>
-    <div class="hz-table-head" #theadElement>
+    <ul class="hz-table-head" #theadElement>
+      <li
+        *ngFor="let th of hzThComponent"
+        [ngClass]="{'hz-table-col-left-sticky': th.hzLeft, 'hz-table-col-right-sticky': th.hzRight}"
+        [ngStyle]="{'left': th.hzLeft, 'right': th.hzRight, 'width': th.hzWidth}">
+        <span>{{th.innerText}}</span>
+        <i (click)="sortChange(th)"
+           [ngClass]="{'hz-table-sort-desc': th.hzSort === 'desc', 'hz-table-sort-asc':  th.hzSort === 'asc'}"
+        ></i>
+      </li>
+    </ul>
+  </article>
+  <article class="hz-table-body-wrap">
+    <div class="wrap-scroll" #tbodyScrollElement>
       <table>
-        <ng-template [ngTemplateOutlet]="TableHead"></ng-template>
+        <ng-content></ng-content>
       </table>
     </div>
   </article>
-  <div class="hz-table-body-wrap" #tbodyElement>
-    <table>
-      <ng-content></ng-content>
-    </table>
-  </div>
+  <article class="no-data" *ngIf="hzTbodyDirective.listOfHzTrDirective.length === 0">
+    <i class="ico-no-data grh-icon"></i>
+    <p>暂无数据</p>
+  </article>
 </section>
-
-<ng-template #TableHead>
-  <thead class="hz-table-thead">
-    <ng-template [ngTemplateOutlet]="hzTheadComponent?.templateRef"></ng-template>
-  <span></span>
-  </thead>
-</ng-template>
-

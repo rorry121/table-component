@@ -1,12 +1,12 @@
-import { Component, ElementRef, Host, HostBinding, Input, OnInit, Optional, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Host, HostBinding, Input, Optional, Renderer2 } from '@angular/core';
 import { HzTableComponent } from '../hz-table.component';
 
-@Component({
-  // tslint:disable-next-line:component-selector
-  selector: 'td',
-  templateUrl: './hz-td.component.html',
+@Directive({
+  // tslint:disable-next-line:directive-selector
+  selector: 'td'
 })
-export class HzTdComponent implements OnInit {
+export class HzTdDirective {
+
   @Input() hzLeft: string;  // 固定列，左边距离
   @Input() hzRight: string; // 固定列，右边距离
   @Input() hzWidth: string;
@@ -48,9 +48,6 @@ export class HzTdComponent implements OnInit {
     public element: ElementRef,
     private renderer2: Renderer2
   ) {
-  }
-
-  ngOnInit() {
   }
 
 }

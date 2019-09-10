@@ -3,37 +3,24 @@
 @table-cell-height: 36px;
 @white-color-per42: rgba(255, 255, 255, .42);
 @white-color-per70: rgba(255, 255, 255, .7);
+@text-color-light: rgba(255, 255, 255, .7);
 
 .hz-table-wrap {
+  padding: 30px;
+  box-sizing: border-box;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   position: relative;
-  &.hz-table-scroll-left {
-    ::ng-deep .hz-table-col-left-sticky {
-      box-shadow: none;
+  .no-data {
+    text-align: center;
+    position: absolute;
+    margin-top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    p {
+      color: @text-color-light;
     }
-  }
-  &.hz-table-scroll-middle {
-
-  }
-  &.hz-table-scroll-right {
-    ::ng-deep .hz-table-col-right-sticky {
-      box-shadow: none;
-    }
-  }
-  ::ng-deep .hz-table-col-right-sticky {
-    position: sticky;
-    z-index: 10;
-    box-shadow: -6px 0 6px 0 rgba(0,0,0,.05)
-  }
-  ::ng-deep .hz-table-col-left-sticky {
-    position: sticky;
-    z-index: 10;
-    box-shadow: 6px 0 6px 0 rgba(0,0,0,.05)
-  }
-  .hz-table-body-wrap {
-    max-height: 200px;
-    overflow: auto;
   }
   .hz-table-head-wrap {
     width: 100%;
@@ -43,77 +30,144 @@
     box-sizing: border-box;
     background-color: @blue-bg-color-per10;
     border-right: 0 solid @blue-bg-color-per10;
+
     .hz-table-head {
       position: absolute;
       left: 0;
       top: 0;
-    }
-  }
-    table {
-      width: 100%;
-      border-spacing: 0;
-      text-align: left;
-      ::ng-deep thead {
-        width: 100%;
-        font-size: 14px;
-        font-weight: bold;
-        color: @white-color-per42;
-        tr {
-          th {
-            min-width: 200px;
-            padding: 0 16px;
-            box-sizing: border-box!important;
-            background-color: @blue-bg-color-per10;
-            height: @table-cell-height;
-            line-height: @table-cell-height;
-            span {
-              //vertical-align: middle;
-              //margin-right: 4px;
-              //white-space: nowrap;
-              //overflow: hidden;
-              //text-overflow: ellipsis;
-              //display: inline-block;
-              //max-width: calc(100% - 20px);
-            }
-            i {
-              cursor: pointer;
-              display: inline-block;
-              height: 16px;
-              width: 16px;
-              background: url("../../assets/icon-arrows-white-down.svg");
-              vertical-align: middle;
-              &.hz-table-sort-desc {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: @white-color-per42;
+      white-space: nowrap;
 
-              }
-              &.hz-table-sort-asc {
-                transform: rotate(180deg);
-              }
-            }
+      li {
+        font-weight: bold;
+        font-size: 14px;
+        display: inline-block;
+        padding: 0 16px;
+        box-sizing: border-box !important;
+        background-color: @blue-bg-color-per10;
+        height: @table-cell-height;
+        line-height: @table-cell-height;
+
+        i {
+          margin-left: 4px;
+          cursor: pointer;
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          background: url("../../assets/icon-arrows-white-down.svg");
+          vertical-align: middle;
+
+          &.hz-table-sort-desc {
+
           }
-        }
-      }
-      ::ng-deep tbody {
-        width: 100%;
-        color: @white-color-per70;
-        font-size: 12px;
-        tr {
-          &:nth-child(2n-1) {
-            td {
-              background-color: @blue-bg-color-per20;
-            }
-          }
-          &:nth-child(2n) {
-            td {
-              background-color: @blue-bg-color-per10;
-            }
-          }
-          td {
-            padding: 0 16px;
-            min-width: 200px;
-            box-sizing: border-box!important;
-            height: @table-cell-height;
+
+          &.hz-table-sort-asc {
+            transform: rotate(180deg);
           }
         }
       }
     }
   }
+
+  .hz-table-body-wrap {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: calc(100% - 36px);
+    position: relative;
+
+    .wrap-scroll {
+      position: absolute;
+      min-width: 100%;
+      width: 100%;
+      max-height: 100%;
+      overflow-x: auto;
+      overflow-y: auto;
+
+      table {
+        margin-top: -36px;
+        width: 100%;
+        border-spacing: 0;
+        text-align: left;
+
+        ::ng-deep thead {
+          width: 100%;
+          font-size: 14px;
+          font-weight: bold;
+          color: @white-color-per42;
+          white-space: nowrap;
+
+          tr {
+            th {
+              padding: 0 16px;
+              box-sizing: border-box !important;
+              background-color: @blue-bg-color-per10;
+              height: @table-cell-height;
+              line-height: @table-cell-height;
+              white-space: nowrap;
+            }
+          }
+        }
+
+        ::ng-deep tbody {
+          width: 100%;
+          color: @white-color-per70;
+          font-size: 12px;
+
+          tr {
+            &:nth-child(2n-1) {
+              td {
+                background-color: @blue-bg-color-per20;
+              }
+            }
+
+            &:nth-child(2n) {
+              td {
+                background-color: @blue-bg-color-per10;
+              }
+            }
+
+            td {
+              min-width: 150px;
+              padding: 0 16px;
+              box-sizing: border-box !important;
+              height: @table-cell-height;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+  // 固定列相关样式
+  &.hz-table-scroll-left {
+    ::ng-deep .hz-table-col-left-sticky {
+      box-shadow: none;
+    }
+  }
+
+  &.hz-table-scroll-middle {
+
+  }
+
+  &.hz-table-scroll-right {
+    ::ng-deep .hz-table-col-right-sticky {
+      box-shadow: none;
+    }
+  }
+
+  ::ng-deep .hz-table-col-right-sticky {
+    position: sticky;
+    z-index: 10;
+    box-shadow: -6px 0 6px 0 rgba(0, 0, 0, .05)
+  }
+
+  ::ng-deep .hz-table-col-left-sticky {
+    position: sticky;
+    z-index: 10;
+    box-shadow: 6px 0 6px 0 rgba(0, 0, 0, .05)
+  }
+}

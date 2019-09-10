@@ -1,21 +1,17 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ContentChild, ContentChildren,
-  ElementRef, EventEmitter,
-  Input, OnDestroy,
-  OnInit, Output, QueryList, Renderer2,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef
+  ElementRef, EventEmitter, OnDestroy,
+  OnInit, Output, Renderer2,
+  ViewChild
 } from '@angular/core';
-import { HzTheadComponent } from './hz-thead/hz-thead.component';
 import { HzThComponent } from './hz-th/hz-th.component';
-import { map, mergeAll, startWith, takeUntil, throttleTime } from 'rxjs/operators';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { startWith, takeUntil, throttleTime } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
 import { merge } from 'rxjs/internal/observable/merge';
-import { HzTbodyDirective } from './hz-tbody.directive';
+import { HzTbodyDirective } from './directives/hz-tbody.directive';
+import { HzTheadDirective } from './directives/hz-thead.directive';
 
 @Component({
   selector: 'app-hz-table',
@@ -24,17 +20,19 @@ import { HzTbodyDirective } from './hz-tbody.directive';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  hzTheadComponent: HzTheadComponent;
+  HzTheadDirective: HzTheadDirective;
+  hzThComponent: HzThComponent[];
   hzTbodyDirective: HzTbodyDirective;
   destroy$ = new Subject();
-  @Output() sortKeyChange = new EventEmitter<{key: string, value: 'asc' | 'desc'}>();
-  @ViewChild('tbodyElement', {static: false}) tbodyElement: ElementRef;
+  @Output() sortKeyChange = new EventEmitter<{ key: string, value: 'asc' | 'desc' }>();
+  @ViewChild('tbodyScrollElement', {static: false}) tbodyScrollElement: ElementRef;
   @ViewChild('theadElement', {static: false}) theadElement: ElementRef;
   @ViewChild('tableElement', {static: false}) tableElement: ElementRef;
   @ViewChild('theadElementWrap', {static: false}) theadElementWrap: ElementRef;
 
   constructor(
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private cdf: ChangeDetectorRef
   ) {
   }
 
@@ -45,21 +43,20 @@ export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
     const resize$ = fromEvent(window, 'resize').pipe(
       throttleTime(20)
     );
-    const scroll$ = fromEvent(this.tbodyElement.nativeElement, 'scroll');
+    const scroll$ = fromEvent(this.tbodyScrollElement.nativeElement, 'scroll');
 
     const elementChange$ = merge(resize$, scroll$);
     elementChange$.pipe(
       startWith(true),
       takeUntil(this.destroy$)
     ).subscribe(() => {
-      // console.log(this.tbodyElement.nativeElement.offsetWidth, this.tbodyElement.nativeElement.scrollWidth, this.tbodyElement.nativeElement.clientWidth);
-      this.renderer2.setStyle(this.theadElement.nativeElement, 'left', -this.tbodyElement.nativeElement.scrollLeft + 'px');
-      if (this.tbodyElement.nativeElement.scrollWidth > this.tbodyElement.nativeElement.clientWidth) {
-        if (this.tbodyElement.nativeElement.scrollLeft === 0) {
+      this.renderer2.setStyle(this.theadElement.nativeElement, 'left', -this.tbodyScrollElement.nativeElement.scrollLeft + 'px');
+      if (this.tbodyScrollElement.nativeElement.scrollWidth > this.tbodyScrollElement.nativeElement.clientWidth) {
+        if (this.tbodyScrollElement.nativeElement.scrollLeft === 0) {
           this.renderer2.removeClass(this.tableElement.nativeElement, 'hz-table-scroll-middle');
           this.renderer2.removeClass(this.tableElement.nativeElement, 'hz-table-scroll-right');
           this.renderer2.addClass(this.tableElement.nativeElement, 'hz-table-scroll-left');
-        } else if (this.tbodyElement.nativeElement.scrollLeft === (this.tbodyElement.nativeElement.scrollWidth - this.tbodyElement.nativeElement.clientWidth)) {
+        } else if (this.tbodyScrollElement.nativeElement.scrollLeft === (this.tbodyScrollElement.nativeElement.scrollWidth - this.tbodyScrollElement.nativeElement.clientWidth)) {
           this.renderer2.removeClass(this.tableElement.nativeElement, 'hz-table-scroll-middle');
           this.renderer2.removeClass(this.tableElement.nativeElement, 'hz-table-scroll-left');
           this.renderer2.addClass(this.tableElement.nativeElement, 'hz-table-scroll-right');
@@ -73,38 +70,44 @@ export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.renderer2.addClass(this.tableElement.nativeElement, 'hz-table-scroll-right');
       }
     });
-    const mergeChanges$ = merge(this.hzTbodyDirective.listOfHzTrDirective.changes, this.hzTheadComponent.listOfHzThComponent.changes, resize$);
+
+    const mergeChanges$ = merge(this.hzTbodyDirective.listOfHzTrDirective.changes, this.HzTheadDirective.listOfHzThComponent.changes, resize$);
     mergeChanges$.pipe(
       startWith(true),
       takeUntil(this.destroy$)
     ).subscribe(() => {
-      this.renderer2.setStyle(this.theadElementWrap.nativeElement, 'border-right-width', (this.tbodyElement.nativeElement.offsetWidth - this.tbodyElement.nativeElement.clientWidth) + 'px');
-      const hzThComponents: HzThComponent[] = this.hzTheadComponent.listOfHzThComponent.toArray();
-      if (this.hzTbodyDirective.listOfHzTrDirective.first) {
-        this.hzTbodyDirective.listOfHzTrDirective.first.listOfHzTdComponent.forEach((e, i) => {
-          this.renderer2.setStyle(hzThComponents[i].element.nativeElement, 'width', e.element.nativeElement.clientWidth + 'px');
-          // this.renderer2.setStyle(hzThComponents[i].element.nativeElement.children[0], 'max-width', e.element.nativeElement.clientWidth - 52 + 'px');
-        });
-      }
-    });
-    const sortKey$ = merge(...this.hzTheadComponent.listOfHzThComponent.map(th => th.sortChange$)).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(data => {
-      const hzThComponents: HzThComponent[] = this.hzTheadComponent.listOfHzThComponent.toArray();
-      hzThComponents.forEach((e) => {
-        if (data.key !== e.hzSortKey) {
-          e.hzSort = 'asc';
-        } else {
-          e.hzSort = data.value;
+      setTimeout(() => {
+        if (this.HzTheadDirective.listOfHzThComponent.length > 0) {
+          const width = this.tbodyScrollElement.nativeElement.offsetWidth - this.tbodyScrollElement.nativeElement.clientWidth;
+          this.renderer2.setStyle(this.theadElementWrap.nativeElement, 'border-right-width', width + 'px');
+          this.hzThComponent = this.HzTheadDirective.listOfHzThComponent.toArray();
+          this.HzTheadDirective.listOfHzThComponent.forEach((e, i) => {
+            this.hzThComponent[i].hzWidth = e.element.nativeElement.clientWidth + 'px';
+          });
+          this.cdf.detectChanges();
         }
-      });
-      console.log(data);
-      this.sortKeyChange.emit(data);
+      }, 0);
     });
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  sortChange(th: HzThComponent) {
+    if (th.hzSort === 'asc') {
+      th.hzSort = 'desc';
+    } else {
+      th.hzSort = 'asc';
+    }
+    this.hzThComponent.forEach((e) => {
+      if (th.hzSortKey !== e.hzSortKey) {
+        e.hzSort = 'asc';
+      } else {
+        e.hzSort = th.hzSort;
+      }
+    });
+    this.sortKeyChange.emit({key: th.hzSortKey, value: th.hzSort});
   }
 }

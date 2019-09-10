@@ -5,7 +5,7 @@
   <span>
       <ng-content></ng-content>
   </span>
-  <i *ngIf="hzShowSort" (click)="sortChange()"
+  <i *ngIf="hzShowSort"
      [ngClass]="{'hz-table-sort-desc': hzSort === 'desc', 'hz-table-sort-asc':  hzSort === 'asc'}"
   ></i>
 </ng-container>
