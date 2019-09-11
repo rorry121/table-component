@@ -6,12 +6,12 @@ import {
   OnInit, Output, Renderer2,
   ViewChild
 } from '@angular/core';
-import { HzThComponent } from './hz-th/hz-th.component';
 import { startWith, takeUntil, throttleTime } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
 import { merge } from 'rxjs/internal/observable/merge';
 import { HzTbodyDirective } from './directives/hz-tbody.directive';
 import { HzTheadDirective } from './directives/hz-thead.directive';
+import { HzThDirective } from './directives/hz-th.directive';
 
 @Component({
   selector: 'app-hz-table',
@@ -21,7 +21,7 @@ import { HzTheadDirective } from './directives/hz-thead.directive';
 })
 export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
   HzTheadDirective: HzTheadDirective;
-  hzThComponent: HzThComponent[];
+  hzThComponent: HzThDirective[];
   hzTbodyDirective: HzTbodyDirective;
   destroy$ = new Subject();
   @Output() sortKeyChange = new EventEmitter<{ key: string, value: 'asc' | 'desc' }>();
@@ -71,17 +71,17 @@ export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    const mergeChanges$ = merge(this.hzTbodyDirective.listOfHzTrDirective.changes, this.HzTheadDirective.listOfHzThComponent.changes, resize$);
+    const mergeChanges$ = merge(this.hzTbodyDirective.listOfHzTrDirective.changes, this.HzTheadDirective.listOfHzThDirective.changes, resize$);
     mergeChanges$.pipe(
       startWith(true),
       takeUntil(this.destroy$)
     ).subscribe(() => {
       setTimeout(() => {
-        if (this.HzTheadDirective.listOfHzThComponent.length > 0) {
+        if (this.HzTheadDirective.listOfHzThDirective.length > 0) {
           const width = this.tbodyScrollElement.nativeElement.offsetWidth - this.tbodyScrollElement.nativeElement.clientWidth;
           this.renderer2.setStyle(this.theadElementWrap.nativeElement, 'border-right-width', width + 'px');
-          this.hzThComponent = this.HzTheadDirective.listOfHzThComponent.toArray();
-          this.HzTheadDirective.listOfHzThComponent.forEach((e, i) => {
+          this.hzThComponent = this.HzTheadDirective.listOfHzThDirective.toArray();
+          this.HzTheadDirective.listOfHzThDirective.forEach((e, i) => {
             this.hzThComponent[i].hzWidth = e.element.nativeElement.clientWidth + 'px';
           });
           this.cdf.detectChanges();
@@ -95,19 +95,12 @@ export class HzTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  sortChange(th: HzThComponent) {
+  sortChange(th: HzThDirective) {
     if (th.hzSort === 'asc') {
       th.hzSort = 'desc';
     } else {
       th.hzSort = 'asc';
     }
-    this.hzThComponent.forEach((e) => {
-      if (th.hzSortKey !== e.hzSortKey) {
-        e.hzSort = 'asc';
-      } else {
-        e.hzSort = th.hzSort;
-      }
-    });
     this.sortKeyChange.emit({key: th.hzSortKey, value: th.hzSort});
   }
 }

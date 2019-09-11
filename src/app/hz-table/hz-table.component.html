@@ -7,7 +7,9 @@
         [ngStyle]="{'left': th.hzLeft, 'right': th.hzRight, 'width': th.hzWidth}">
         <span>{{th.innerText}}</span>
         <i (click)="sortChange(th)"
-           [ngClass]="{'hz-table-sort-desc': th.hzSort === 'desc', 'hz-table-sort-asc':  th.hzSort === 'asc'}"
+           class="grh-icon grh-icon-hover ico-relation-order-icon"
+           *ngIf="th.hzShowSort"
+           [ngClass]="{'ico-relation-order-icon-active': th.sortActive, 'hz-table-sort-desc':  th.hzSort === 'desc'}"
         ></i>
       </li>
     </ul>

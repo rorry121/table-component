@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HzTableComponent } from './hz-table.component';
-import { HzThComponent } from './hz-th/hz-th.component';
 import { HzTbodyDirective } from './directives/hz-tbody.directive';
 import { HzTrDirective } from './directives/hz-tr.directive';
 import { HzTdDirective } from './directives/hz-td.directive';
 import { HzTheadDirective } from './directives/hz-thead.directive';
+import { HzThDirective } from './directives/hz-th.directive';
 
 
 @NgModule({
   declarations: [
     HzTableComponent,
-    HzThComponent,
     HzTbodyDirective,
     HzTrDirective,
     HzTdDirective,
-    HzTheadDirective
+    HzTheadDirective,
+    HzThDirective
   ],
   imports: [
     CommonModule,
   ],
-  exports: [HzTableComponent, HzThComponent, HzTrDirective, HzTbodyDirective, HzTdDirective, HzTheadDirective]
+  exports: [HzTableComponent, HzTrDirective, HzTbodyDirective, HzTdDirective, HzTheadDirective, HzThDirective]
 })
 export class HzTableModule { }

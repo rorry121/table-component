@@ -1,8 +1,7 @@
 import { ContentChildren, Directive, Host, Optional, QueryList } from '@angular/core';
-import { HzThComponent } from '../hz-th/hz-th.component';
 import { HzTrDirective } from './hz-tr.directive';
-import { Subject } from 'rxjs';
 import { HzTableComponent } from '../hz-table.component';
+import { HzThDirective } from './hz-th.directive';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -10,9 +9,8 @@ import { HzTableComponent } from '../hz-table.component';
 })
 export class HzTheadDirective {
 
-  @ContentChildren(HzThComponent, {descendants: true}) listOfHzThComponent: QueryList<HzThComponent>;
+  @ContentChildren(HzThDirective, {descendants: true}) listOfHzThDirective: QueryList<HzThDirective>;
   @ContentChildren(HzTrDirective, {descendants: true}) listOfHzTrDirective: QueryList<HzTrDirective>;
-  destroy$ = new Subject();
 
   constructor(
     @Host() @Optional() public hzTableComponent: HzTableComponent,
