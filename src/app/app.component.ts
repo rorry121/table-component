@@ -10,94 +10,95 @@ export class AppComponent {
   listOfData = [];
 
   constructor() {
-    setTimeout(() => {
-      this.title = ['asdas123d' , 'as123', 'asdccasqwe1'];
-      this.listOfData = [
-        {
-          key: '1',
-          name: 'John BrowJohn BrownJohn BrownJohn BrownJohn BrownJohn Brownn',
-          age: 32,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          key: '2',
-          name: 'Jim GrLondon No. 1 Lake Parkeen',
-          age: 42,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 323232323232323232323232323232323232323232,
-          address: 'Sidney No. 1 Lake Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkPark'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park'
-        }
-      ];
-    }, 2000);
+    this.listOfData = [
+      {
+        key: '1',
+        name: 'John BrowJohn BrownJohn BrownJohn BrownJohn BrownJohn Brownn',
+        age: 32,
+        address: 'New York No. 1 Lake Park'
+      },
+      {
+        key: '2',
+        name: 'Jim GrLondon No. 1 Lake Parkeen',
+        age: 42,
+        address: 'London No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 323232323232323232323232323232323232323232,
+        address: 'Sidney No. 1 Lake Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkPark'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park'
+      }
+    ];
+    for (let i = 0; i < 30; i++) {
+      this.listOfData.push(this.listOfData[0]);
+    }
   }
 
   delete(i: number) {
-    this.listOfData.splice(i ,1);
+    this.listOfData.splice(i, 1);
   }
 
   show() {
     this.listOfData = [];
-    setTimeout(() => {
-      this.listOfData = [
-        {
-          key: '1',
-          name: 'John BrowJohn BrownJohn BrownJohn BrownJohn BrownJohn Brownn',
-          age: 32,
-          address: 'New York No. 1 Lake Park'
-        },
-        {
-          key: '2',
-          name: 'Jim GrLondon No. 1 Lake Parkeen',
-          age: 42,
-          address: 'London No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 323232323232323232323232323232323232323232,
-          address: 'Sidney No. 1 Lake Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkPark'
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sidney No. 1 Lake Park'
-        }
-      ];
-    }, 500);
+    this.listOfData = [
+      {
+        key: '1',
+        name: 'John BrowJohn BrownJohn BrownJohn BrownJohn BrownJohn Brownn',
+        age: 32,
+        address: 'New York No. 1 Lake Park'
+      },
+      {
+        key: '2',
+        name: 'Jim GrLondon No. 1 Lake Parkeen',
+        age: 42,
+        address: 'London No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 323232323232323232323232323232323232323232,
+        address: 'Sidney No. 1 Lake Sidney No. 1 Lake ParkSidney No. 1 Lake ParkSidney No. 1 Lake ParkPark'
+      },
+      {
+        key: '3',
+        name: 'Joe Black',
+        age: 32,
+        address: 'Sidney No. 1 Lake Park'
+      }
+    ];
+    for (let i = 0; i < 30; i++) {
+      this.listOfData.push(this.listOfData[0]);
+    }
   }
 }
